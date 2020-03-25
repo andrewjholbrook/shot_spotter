@@ -40,6 +40,8 @@ load("data/no_holidays_samples_new_param.Rdata")
 # check ess
 coda::effectiveSize(coda::as.mcmc(1/samps[1,]))
 coda::effectiveSize(coda::as.mcmc(1/samps[4,]))
+coda::effectiveSize(coda::as.mcmc(samps[5,]))
+coda::effectiveSize(coda::as.mcmc(samps[6,]))
 
 
 # get approx. results from previous study for comparison
