@@ -15,20 +15,20 @@ gg_color_hue <- function(n) {
 # load("data/no_holidays.Rdata")
 # X <- as.matrix(df_no_holidays[,1:2])
 # times <- df_no_holidays$Time
-# 
+#
 # # get prob child
 # load("data/prob_child.Rdata")
-# 
+#
 # df <- data.frame(X[,1],X[,2],prob_child1)
 # colnames(df) <- c("Latitude","Longitude","Probability\nself-excitatory")
-# 
+#
 # gg <- ggplot(df,aes(x=Latitude,y=Longitude)) +
 #   geom_point(aes(color=`Probability\nself-excitatory`,
 #                  alpha=`Probability\nself-excitatory`)) +
 #   scale_colour_gradient(low = "black", high = "purple") +
 #   scale_alpha(range = c(0.15,0.7)) +
 #   theme_classic()
-# 
+#
 # gg
 
 load("data/dc_locations_and_self_excit_probs.Rdata")
@@ -43,8 +43,8 @@ dcMap <- qmap("washington dc", zoom=12,
   scale_alpha_continuous(range = c(0.3,1),guide=FALSE) +
   annotate(geom="label",x=-77.036386,y=38.892711,label="Washington D.C.") +
   theme(legend.position = c(0.13, 0.6),
-        legend.background = element_rect(size=0.2, linetype="solid", 
-        colour ="black")) 
+        legend.background = element_rect(size=0.2, linetype="solid",
+        colour ="black"))
 dcMap
 
 ggsave(filename="dc_map",plot=dcMap,device="png",path="figures/",dpi="retina")
@@ -64,15 +64,15 @@ library(gridExtra)
 
 gg <- ggplot(data = df2, aes(x=Date)) +
   stat_smooth(aes(x=Date,y=Probabilities),se=FALSE,color=brewer.pal(11,"Spectral")[2]) +
-  geom_density(aes(y=..density..*1000),adjust=2,size=1,color=brewer.pal(11,"Spectral")[10]) +
+  stat_density(geom="line",aes(y=..density..*1000),adjust=2,size=1,color=brewer.pal(11,"Spectral")[10]) +
   scale_x_date(date_breaks = "2 year",
                labels = date_format("%Y")) +
   xlab("Year") + ylab("") +
-  annotate(geom="text", x=Date[40550],y=0.075,color=brewer.pal(11,"Spectral")[2],label="Self-excitatory probabilities") +
-  annotate(geom="segment", x=Date[12000],xend =Date[22000],y=0.075,yend=0.075,color=brewer.pal(11,"Spectral")[2],size=1.5) +
-  annotate(geom="text", x=Date[37500],y=0.06,color=brewer.pal(11,"Spectral")[10],label="Gunshot density (x1000)") +
-  annotate(geom="segment", x=Date[12000],xend =Date[22000],y=0.06,yend=0.06,color=brewer.pal(11,"Spectral")[10],size=1.5) +
-  theme_classic() 
+  annotate(geom="text", x=df2$Date[38000],y=0.075,color=brewer.pal(11,"Spectral")[2],label="Self-excitatory probabilities") +
+  annotate(geom="segment", x=df2$Date[12000],xend =df2$Date[22000],y=0.075,yend=0.075,color=brewer.pal(11,"Spectral")[2],size=1.5) +
+  annotate(geom="text", x=df2$Date[37500],y=0.06,color=brewer.pal(11,"Spectral")[10],label="Gunshot density (x1000)") +
+  annotate(geom="segment", x=df2$Date[12000],xend =df2$Date[22000],y=0.06,yend=0.06,color=brewer.pal(11,"Spectral")[10],size=1.5) +
+  theme_classic()
 
 gg
 
